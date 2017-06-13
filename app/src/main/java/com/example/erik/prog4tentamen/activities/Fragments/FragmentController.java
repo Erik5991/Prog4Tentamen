@@ -16,22 +16,18 @@ public class FragmentController {
 
     public static FragmentManager sFragmentManager;
 
+
+    public FragmentController(FragmentManager sFragmentManager) {
+        FragmentController.sFragmentManager = sFragmentManager;
+
+    }
+
     public static Fragment getHomeFragment() {
         HomeActivity.sActionBar.setTitle("Films");
         return attemptAddFragment(new HomeFragment(), false);
     }
 
 
-
-
-
-
-
-    /**
-     * Replaces the fragment in the Frameholder with the new fragment, default add to backstack.
-     * @param fragment Specify fragment for in Frameholder.
-     * @return returns the Fragment which is added to the frameHolder.
-     */
     private static Fragment attemptAddFragment(Fragment fragment) {
         return attemptAddFragment(fragment, true);
     }
@@ -45,7 +41,7 @@ public class FragmentController {
     private static Fragment attemptAddFragment(Fragment fragment, boolean addToBackStack) {
         try {
             FragmentTransaction mFragmentTransaction = sFragmentManager.beginTransaction();
-            mFragmentTransaction.replace(R.id.nav_home, fragment);
+            mFragmentTransaction.replace(R.id.content_frame, fragment);
             if (addToBackStack) {
                 mFragmentTransaction.addToBackStack(null);
             }

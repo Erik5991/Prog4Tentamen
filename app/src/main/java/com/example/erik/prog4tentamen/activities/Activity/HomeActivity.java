@@ -16,7 +16,10 @@ import com.example.erik.prog4tentamen.R;
 import com.example.erik.prog4tentamen.activities.Fragments.FragmentController;
 
 public class HomeActivity extends AppCompatActivity
+
+
         implements NavigationView.OnNavigationItemSelectedListener {
+
     public static ActionBar sActionBar;
 
     @Override
@@ -25,7 +28,7 @@ public class HomeActivity extends AppCompatActivity
         setContentView(R.layout.activity_home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        sActionBar = getSupportActionBar();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -74,8 +77,9 @@ public class HomeActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         switch (item.getItemId()) {
-            case R.id.nav_home:
+            case R.id.nav_film:
                 FragmentController.getHomeFragment();
+                break;
             case R.id.nav_logout:
                 logout();
                 break;
