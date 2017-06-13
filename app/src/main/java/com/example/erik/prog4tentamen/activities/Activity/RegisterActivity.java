@@ -1,4 +1,4 @@
-package com.example.erik.prog4tentamen.activities;
+package com.example.erik.prog4tentamen.activities.Activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
