@@ -18,9 +18,12 @@ import com.example.erik.prog4tentamen.activities.Fragments.FragmentController;
 public class HomeActivity extends AppCompatActivity
 
 
-        implements NavigationView.OnNavigationItemSelectedListener {
+    implements NavigationView.OnNavigationItemSelectedListener {
 
     public static ActionBar sActionBar;
+    private FragmentController fragmentController;
+    private NavigationView navigationView;
+    private DrawerLayout drawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +31,14 @@ public class HomeActivity extends AppCompatActivity
         setContentView(R.layout.activity_home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        initializeToolbar();
+        initializeNavigationView();
+
+        startHomeFragment();
+
+
+        this.getFragmentManager();
 
         sActionBar = getSupportActionBar();
         sActionBar.setTitle("Films");
@@ -42,6 +53,26 @@ public class HomeActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
+
+
+    private void startHomeFragment() {
+        FragmentController.sFragmentManager = getSupportFragmentManager();
+        FragmentController.getHomeFragment();
+        navigationView.setCheckedItem(R.id.nav_film);
+    }
+    private void initializeNavigationView() {
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    private void initializeToolbar() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        sActionBar = getSupportActionBar();
+
+        initializeDrawer(toolbar);
+    }
+
 
     @Override
     public void onBackPressed() {
@@ -75,10 +106,19 @@ public class HomeActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+    private void initializeDrawer(Toolbar toolbar) {
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+    }
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
+        int id = item.getItemId();
         switch (item.getItemId()) {
             case R.id.nav_film:
                 FragmentController.getHomeFragment();
@@ -92,6 +132,9 @@ public class HomeActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
+
 
 
     private void logout() {
