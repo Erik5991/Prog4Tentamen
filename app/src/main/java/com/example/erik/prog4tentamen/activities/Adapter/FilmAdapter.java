@@ -1,5 +1,6 @@
 package com.example.erik.prog4tentamen.activities.Adapter;
 
+import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.erik.prog4tentamen.R;
-import com.example.erik.prog4tentamen.activities.Fragments.HomeFragment;
 import com.example.erik.prog4tentamen.activities.Objects.Film;
 
 import java.util.ArrayList;
@@ -22,11 +22,12 @@ public class FilmAdapter extends BaseAdapter {
 
     private final String TAG = this.getClass().getSimpleName();
 
-    private HomeFragment mContext;
+
+    private Context mContext;
     private LayoutInflater mInflator;
     private ArrayList<Film> filmArrayList;
 
-    public FilmAdapter(HomeFragment mContext, LayoutInflater mInflator, ArrayList<Film> filmArrayList) {
+    public FilmAdapter(Context mContext, LayoutInflater mInflator, ArrayList<Film> filmArrayList) {
         this.mContext = mContext;
         this.mInflator = mInflator;
         this.filmArrayList = filmArrayList;

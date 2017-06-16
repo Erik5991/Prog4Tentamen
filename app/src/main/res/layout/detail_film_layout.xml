@@ -42,6 +42,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:paddingLeft="15dp"
+                android:text="textViewTitle"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 tools:text="textViewTitle" />
@@ -52,7 +53,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.12"
                 android:paddingLeft="15dp"
-                android:text="Available"
+                android:text="Available for rent"
                 android:textSize="14sp" />
         </LinearLayout>
 
@@ -77,13 +78,17 @@
             android:id="@+id/button3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
+            android:layout_marginLeft="17dp"
+            android:layout_marginStart="17dp"
+            android:layout_marginTop="14dp"
+            android:background="@color/colorPrimary"
             android:text="Rent"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@+id/button4"
-            android:layout_toEndOf="@+id/button4"
-            android:layout_marginLeft="17dp"
-            android:layout_marginStart="17dp" />
+            android:layout_toEndOf="@+id/button4" />
 
         <Button
             android:id="@+id/button4"
@@ -92,7 +97,11 @@
             android:layout_alignBaseline="@+id/button3"
             android:layout_alignBottom="@+id/button3"
             android:layout_centerHorizontal="true"
-            android:text="Return" />
+            android:background="@color/colorPrimary"
+            android:text="Return"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
     </RelativeLayout>
 
     <LinearLayout

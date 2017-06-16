@@ -123,6 +123,9 @@ public class HomeActivity extends AppCompatActivity
             case R.id.nav_film:
                 FragmentController.getHomeFragment();
                 break;
+            case R.id.nav_history:
+                FragmentController.getHistoryFragmeny();
+                break;
             case R.id.nav_logout:
                 logout();
                 break;

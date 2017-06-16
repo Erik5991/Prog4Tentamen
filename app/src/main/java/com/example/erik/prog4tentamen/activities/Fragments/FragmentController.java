@@ -26,6 +26,10 @@ public class FragmentController {
         HomeActivity.sActionBar.setTitle("Films");
         return attemptAddFragment(new HomeFragment(), false);
     }
+    public static Fragment getHistoryFragmeny() {
+        HomeActivity.sActionBar.setTitle("History");
+        return attemptAddFragment(new RentHistoryFragment(), false);
+    }
 
 
     private static Fragment attemptAddFragment(Fragment fragment) {
