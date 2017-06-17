@@ -69,8 +69,6 @@ public class FilmMapper {
             Integer allcopysLength = allcopys.length();
             Integer allcopysoutLength = allcopysout.length();
 
-
-
             for(int i = 0; i < allcopysoutLength; i++) {
                 JSONObject jsonObject = allcopysout.getJSONObject(i);
                 allCopysoutlist.add(jsonObject.getInt("inventory_id"));
@@ -81,11 +79,11 @@ public class FilmMapper {
                 Integer inventoryid = jsonObject.getInt("inventory_id");
 
                 if(allCopysoutlist.contains(inventoryid)){
-                    Inventoryid id = new Inventoryid(inventoryid, "out");
+                    Inventoryid id = new Inventoryid(inventoryid, "Unavailable");
                     inventoryidList.add(id);
                 }
                 else {
-                    Inventoryid id = new Inventoryid(inventoryid, "free");
+                    Inventoryid id = new Inventoryid(inventoryid, "Available");
                     inventoryidList.add(id);
                 }
             }
@@ -95,5 +93,37 @@ public class FilmMapper {
             Log.e("ToDoMapper", "onPostExecute JSONException " + ex.getLocalizedMessage());
         }
         return inventoryidList;
+    }
+
+    public static Film getFilmByID (JSONObject response){
+
+        Film result = null;
+
+        try{
+            JSONArray jsonObj = response.getJSONArray("result");
+            Integer jsonLength = jsonObj.length();
+
+            for(int i = 0; i < jsonLength; i++){
+                JSONObject jsonObject = jsonObj.getJSONObject(i);
+
+                Film film = new Film(
+                        jsonObject.getInt("film_id"),
+                        jsonObject.getInt("rental_duration"),
+                        jsonObject.getInt("length"),
+                        jsonObject.getString("title"),
+                        jsonObject.getString("description"),
+                        jsonObject.getString("release_year"),
+                        jsonObject.getString("rating"),
+                        jsonObject.getDouble("rental_rate"),
+                        jsonObject.getDouble("replacement_cost")
+                );
+                result = film;
+                Log.i("Jsonobject film", film.getTitle());
+            }
+        } catch( JSONException ex) {
+            Log.e("ToDoMapper", "onPostExecute JSONException " + ex.getLocalizedMessage());
+        }
+
+        return result;
     }
 }
