@@ -24,7 +24,7 @@ import java.util.Map;
  * Created by Erik on 16-6-2017.
  */
 
-public class Filmrequest implements FilmListener {
+public class Filmrequest {
 
 
     private Context context;
@@ -38,9 +38,9 @@ public class Filmrequest implements FilmListener {
      * Constructor
      *
      * @param context
-  //   * @param listener
+    //   * @param listener
      */
-    public Filmrequest(Context context) {
+    public Filmrequest(Context context, Filmrequest.FilmListener listener) {
         this.context = context;
         this.listener = listener;
     }
@@ -50,26 +50,19 @@ public class Filmrequest implements FilmListener {
      */
     public void getAllFilms() {
 
-        Log.i(TAG, "handleGetAllToDos");
-
-        // Haal het token uit de prefs
-
         tokenController = new TokenController(context.getApplicationContext());
         final String token = tokenController.getToken();
 
-
-        Log.i(TAG, "Token gevonden, we gaan het request uitvoeren");
         JsonObjectRequest jsObjRequest = new JsonObjectRequest(
                 Request.Method.GET,
                 BaseAPI.URL_GET_MOVIES,
-                "",
+                new JSONObject(),
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         // Succesvol response
                         Log.i(TAG, response.toString());
-                        ArrayList<Film> result = FilmMapper.filmArrayList(response);
-                        listener.FilmAvailable(result);
+                        listener.onFilmsAvailible(FilmMapper.filmArrayList(response));
                     }
                 },
                 new Response.ErrorListener() {
@@ -92,19 +85,15 @@ public class Filmrequest implements FilmListener {
         VolleyRequestQueue.getInstance(context).addToRequestQueue(jsObjRequest);
     }
 
-    @Override
-    public void FilmAvailable(ArrayList<Film> filmArrayList) {
+    public interface FilmListener {
+        // Callback function to return a fresh list of ToDos
+        void onFilmsAvailible(ArrayList<Film> films);
 
+        // Callback function to handle a single added ToDo.
+        void onFilmAvailible(Film film);
+
+        // Callback to handle serverside API errors
+        void onToDosError(String message);
     }
-
-    @Override
-    public void onFilmAvailible(Film film) {
-
-    }
-
 
 }
-
-    //
-// Callback interface - implemented by the calling class (MainActivity in our case).
-//

@@ -27,7 +27,7 @@ import java.util.ArrayList;
  * Created by Erik on 13-6-2017.
  */
 
-public class HomeFragment extends BaseFragment implements FilmListener{
+public class HomeFragment extends BaseFragment implements Filmrequest.FilmListener{
 
     public final String TAG = this.getClass().getSimpleName();
     public final static String EXTRA_FILM = "FILM";
@@ -35,10 +35,11 @@ public class HomeFragment extends BaseFragment implements FilmListener{
     private FilmMapper filmMapper;
     private ListView filmListView;
     private TextView textView;
-    private Response.Listener listener;
     private BaseAdapter filmAdapter;
-    private ArrayList<Film> filmArrayList = new ArrayList<>();
+    private ArrayList<Film> filmArrayList =new ArrayList<>();
     private TokenController tokenController;
+    private Filmrequest.FilmListener listener;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -46,8 +47,9 @@ public class HomeFragment extends BaseFragment implements FilmListener{
         getActivity().getFragmentManager();
         super.onAttach(getContext());
 
-        Filmrequest filmrequest = new Filmrequest(getContext());
-        filmrequest.getAllFilms();
+        getFilms();
+
+        listener = this;
 
         tokenController = new TokenController(getContext());
         filmListView = (ListView) view.findViewById(R.id.filmListView);
@@ -69,45 +71,50 @@ public class HomeFragment extends BaseFragment implements FilmListener{
     }
 
 
-
-
-
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-
-
-      //  Film film = new Film("hi", "hi", 55);
-        //filmArrayList.add(film);
+        getFilms();
     }
 
-        private void createInfoDialog() {
-            //View for alertDialog
-            View mView = mActivity.getLayoutInflater().inflate(R.layout.detail_film_layout, null);
-            AlertDialog dialog = new AlertDialog.Builder(mActivity).setView(mView).create();
-            dialog.show();
+    private void createInfoDialog() {
+        //View for alertDialog
+        View mView = mActivity.getLayoutInflater().inflate(R.layout.detail_film_layout, null);
+        AlertDialog dialog = new AlertDialog.Builder(mActivity).setView(mView).create();
+        dialog.show();
 
     }
-
 
     @Override
-    public void FilmAvailable(ArrayList<Film> filmArrayList) {
-        Log.i(TAG, "We hebben " + filmArrayList.size() + " items in de lijst");
+    public void onFilmsAvailible(ArrayList<Film> films) {
+        Log.i("Komt terug in de home", "home");
+
+        Log.i("grote arraylist", films.size() + "");
 
         filmArrayList.clear();
-        for(int i = 0; i < filmArrayList.size(); i++) {
-            filmArrayList.add(filmArrayList.get(i));
+        for(int i = 0; i < films.size(); i++) {
+            filmArrayList.add(films.get(i));
         }
         filmAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void onFilmAvailible(Film film) {
-      //  filmArrayList.add(film);
-      //  filmAdapter.notifyDataSetChanged();
+        filmArrayList.add(film);
+        filmAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onToDosError(String message) {
 
     }
 
+
+
+    private void getFilms(){
+        Filmrequest request = new Filmrequest(getContext(), this);
+        request.getAllFilms();
+    }
 }
 
