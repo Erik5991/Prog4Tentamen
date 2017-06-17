@@ -14,6 +14,7 @@ import android.view.MenuItem;
 
 import com.example.erik.prog4tentamen.R;
 import com.example.erik.prog4tentamen.activities.Fragments.FragmentController;
+import com.example.erik.prog4tentamen.controller.TokenController;
 
 public class HomeActivity extends AppCompatActivity
 
@@ -136,12 +137,11 @@ public class HomeActivity extends AppCompatActivity
         return true;
     }
 
-
-
-
-
     private void logout() {
+        TokenController tokenController = new TokenController(getApplicationContext());
+        tokenController.clearToken();
         Intent i = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(i);
+        finish();
     }
 }
