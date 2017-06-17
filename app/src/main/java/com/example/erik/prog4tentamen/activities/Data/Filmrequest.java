@@ -85,6 +85,43 @@ public class Filmrequest {
         VolleyRequestQueue.getInstance(context).addToRequestQueue(jsObjRequest);
     }
 
+    public void getAllFilmsByName(String title) {
+
+        tokenController = new TokenController(context.getApplicationContext());
+        final String token = tokenController.getToken();
+
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest(
+                Request.Method.GET,
+                BaseAPI.URL_GET_MOVIES + "?title=" + title,
+                new JSONObject(),
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // Succesvol response
+                        Log.i(TAG, response.toString());
+                        listener.onFilmsAvailible(FilmMapper.filmArrayList(response));
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // handleErrorResponse(error);
+                        Log.e(TAG, error.toString());
+                    }
+                }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Content-Type", "application/json");
+                headers.put("Authorization", "Bearer " + token);
+                return headers;
+            }
+        };
+
+        // Access the RequestQueue through your singleton class.
+        VolleyRequestQueue.getInstance(context).addToRequestQueue(jsObjRequest);
+    }
+
     public interface FilmListener {
         // Callback function to return a fresh list of ToDos
         void onFilmsAvailible(ArrayList<Film> films);

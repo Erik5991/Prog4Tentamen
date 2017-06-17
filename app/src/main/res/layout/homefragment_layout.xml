@@ -12,7 +12,7 @@
         android:layout_marginTop="60dp" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/editTextStrig"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -24,13 +24,13 @@
         android:text="Name" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/zoekKnop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/editText"
+        android:layout_alignTop="@+id/editTextStrig"
         android:layout_marginLeft="11dp"
         android:layout_marginStart="11dp"
-        android:layout_toEndOf="@+id/editText"
-        android:layout_toRightOf="@+id/editText"
+        android:layout_toEndOf="@+id/editTextStrig"
+        android:layout_toRightOf="@+id/editTextStrig"
         android:text="Zoek" />
 </RelativeLayout>

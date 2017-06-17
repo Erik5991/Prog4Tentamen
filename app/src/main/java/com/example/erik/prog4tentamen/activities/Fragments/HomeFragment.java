@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -39,6 +41,9 @@ public class HomeFragment extends BaseFragment implements Filmrequest.FilmListen
     private ArrayList<Film> filmArrayList =new ArrayList<>();
     private TokenController tokenController;
     private Filmrequest.FilmListener listener;
+    private EditText zoekString;
+    private Button zoekKnop;
+
 
 
     @Override
@@ -47,7 +52,6 @@ public class HomeFragment extends BaseFragment implements Filmrequest.FilmListen
         getActivity().getFragmentManager();
         super.onAttach(getContext());
 
-        getFilms();
 
         listener = this;
 
@@ -75,6 +79,15 @@ public class HomeFragment extends BaseFragment implements Filmrequest.FilmListen
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        zoekString = (EditText) getView().findViewById(R.id.editTextStrig);
+        zoekKnop = (Button) getView().findViewById(R.id.zoekKnop);
+        zoekKnop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getFilmsByName(zoekString.getText().toString());
+            }
+        });
+
         getFilms();
     }
 
@@ -88,9 +101,6 @@ public class HomeFragment extends BaseFragment implements Filmrequest.FilmListen
 
     @Override
     public void onFilmsAvailible(ArrayList<Film> films) {
-        Log.i("Komt terug in de home", "home");
-
-        Log.i("grote arraylist", films.size() + "");
 
         filmArrayList.clear();
         for(int i = 0; i < films.size(); i++) {
@@ -115,6 +125,11 @@ public class HomeFragment extends BaseFragment implements Filmrequest.FilmListen
     private void getFilms(){
         Filmrequest request = new Filmrequest(getContext(), this);
         request.getAllFilms();
+    }
+
+    private void getFilmsByName(String title){
+        Filmrequest request = new Filmrequest(getContext(), this);
+        request.getAllFilmsByName(title);
     }
 }
 
