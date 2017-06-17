@@ -1,6 +1,8 @@
 package com.example.erik.prog4tentamen.activities.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -12,11 +14,10 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.android.volley.Response;
 import com.example.erik.prog4tentamen.R;
+import com.example.erik.prog4tentamen.activities.Activity.FilmDetailActivity;
 import com.example.erik.prog4tentamen.activities.Adapter.FilmAdapter;
 import com.example.erik.prog4tentamen.activities.Data.Filmrequest;
-import com.example.erik.prog4tentamen.activities.FilmListener;
 import com.example.erik.prog4tentamen.activities.Utils.FilmMapper;
 import com.example.erik.prog4tentamen.controller.TokenController;
 import com.example.erik.prog4tentamen.objects.Film;
@@ -26,7 +27,6 @@ import java.util.ArrayList;
 /**
  * Created by Erik on 13-6-2017.
  */
-
 public class HomeFragment extends BaseFragment implements Filmrequest.FilmListener{
 
     public final String TAG = this.getClass().getSimpleName();
@@ -51,6 +51,9 @@ public class HomeFragment extends BaseFragment implements Filmrequest.FilmListen
 
         listener = this;
 
+
+
+
         tokenController = new TokenController(getContext());
         filmListView = (ListView) view.findViewById(R.id.filmListView);
         filmAdapter = new FilmAdapter(getActivity(),  getActivity().getLayoutInflater(), filmArrayList);
@@ -59,10 +62,13 @@ public class HomeFragment extends BaseFragment implements Filmrequest.FilmListen
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Film film = filmArrayList.get(position);
-               // Intent intent = new Intent(getActivity().getApplicationContext(), FilmDetailActivity.class);
-             //   intent.putExtra(EXTRA_FILM,film.toString());
-              //  startActivity(intent);
-                createInfoDialog();
+                Intent intent = new Intent(getActivity().getApplicationContext(), FilmDetailActivity.class);
+                intent.putExtra(EXTRA_FILM, film);
+                startActivity(intent);
+               // createInfoDialog();
+
+
+
             }
         });
 

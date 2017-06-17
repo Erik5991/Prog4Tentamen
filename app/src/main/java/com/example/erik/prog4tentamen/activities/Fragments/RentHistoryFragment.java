@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,12 +14,25 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.erik.prog4tentamen.R;
 import com.example.erik.prog4tentamen.activities.Adapter.FilmAdapter;
+import com.example.erik.prog4tentamen.activities.Data.BaseAPI;
+import com.example.erik.prog4tentamen.controller.TokenController;
+import com.example.erik.prog4tentamen.controller.VolleyRequestQueue;
 import com.example.erik.prog4tentamen.objects.Film;
 
-import java.util.ArrayList;
+import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+import static android.content.ContentValues.TAG;
 
 
 /**
@@ -27,6 +41,7 @@ import java.util.ArrayList;
 
 public class RentHistoryFragment extends BaseFragment {
 
+    private TokenController tokenController;
     private ListView filmListView;
     private TextView textView;
     private BaseAdapter filmAdapter;
@@ -54,6 +69,7 @@ public class RentHistoryFragment extends BaseFragment {
             }
         });
 
+
         filmAdapter.notifyDataSetChanged();
         return view;
     }
@@ -78,6 +94,8 @@ public class RentHistoryFragment extends BaseFragment {
       // Film film = new Film("hi", "hi", 55);
       //  filmArrayList.add(film);
     }
+
+
 
     private void returnMovieDialog() {
         //View for alertDialog

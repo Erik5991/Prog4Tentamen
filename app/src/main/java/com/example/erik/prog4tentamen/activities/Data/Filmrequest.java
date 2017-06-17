@@ -8,7 +8,6 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.example.erik.prog4tentamen.activities.FilmListener;
 import com.example.erik.prog4tentamen.activities.Utils.FilmMapper;
 import com.example.erik.prog4tentamen.controller.TokenController;
 import com.example.erik.prog4tentamen.controller.VolleyRequestQueue;
@@ -81,9 +80,54 @@ public class Filmrequest {
             }
         };
 
+
+
         // Access the RequestQueue through your singleton class.
         VolleyRequestQueue.getInstance(context).addToRequestQueue(jsObjRequest);
     }
+
+    public void RentMovie() {
+
+        tokenController = new TokenController(context.getApplicationContext());
+        final String token = tokenController.getToken();
+        JSONObject jsonObject;
+
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest(
+                Request.Method.POST,
+                BaseAPI.URL_NEW_RENT,
+                new JSONObject(),
+
+
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // Succesvol response
+                        Log.i(TAG, response.toString());
+                        listener.onFilmsAvailible(FilmMapper.filmArrayList(response));
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // handleErrorResponse(error);
+                        Log.e(TAG, error.toString());
+                    }
+                }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Content-Type", "application/json");
+                headers.put("Authorization", "Bearer " + token);
+                return headers;
+            }
+        };
+
+
+
+        // Access the RequestQueue through your singleton class.
+        VolleyRequestQueue.getInstance(context).addToRequestQueue(jsObjRequest);
+    }
+
 
     public interface FilmListener {
         // Callback function to return a fresh list of ToDos

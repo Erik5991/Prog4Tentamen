@@ -1,12 +1,13 @@
 package com.example.erik.prog4tentamen.objects;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by Teunvz on 15-6-2017.
  */
 
-public class Film {
+public class Film implements Serializable {
     private int film_id;
     private int rental_duration;
     private int length;
@@ -109,5 +110,12 @@ public class Film {
     public void setReplacement_cost(Double replacement_cost) {
         this.replacement_cost = replacement_cost;
     }
+/*
+    public String toString() {
+        return String.format("%02d %02d %02d %-20s %-20s %-20s %-20s %4.1f %4.1f", film_id, rental_duration, length , title
+        , description, release_year, rating, rental_rate, replacement_cost);
+    }
+*/
+
 
 }
