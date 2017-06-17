@@ -10,13 +10,9 @@ import java.util.ArrayList;
 
 public interface FilmListener {
 
-  void FilmAvailable(ArrayList<Film> filmArrayList);
-
-    // Callback function to handle a single added ToDo.
+    void FilmAvailable(ArrayList<Film> filmArrayList);
     void onFilmAvailible(Film film);
-
-    // Callback to handle serverside API errors
- //   void onToDosError(String message);
+    void onError();
 }
 
 

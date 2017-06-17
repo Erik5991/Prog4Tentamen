@@ -84,8 +84,7 @@ public class FilmAdapter extends BaseAdapter {
         Film film = filmArrayList.get(position);
         viewHolder.textViewTitle.setText(film.getTitle());
         viewHolder.textViewDescription.setText(film.getDescription());
-        viewHolder.textViewDuration.setText(film.getLength());
-        //new ImageLoader(viewHolder.imageView).execute(product.getSmallImgUrl());
+        viewHolder.textViewDuration.setText(film.getLength() + " Min");
 
         return convertView;
     }

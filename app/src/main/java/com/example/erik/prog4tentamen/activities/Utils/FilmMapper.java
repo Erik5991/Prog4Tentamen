@@ -19,45 +19,36 @@ import java.util.ArrayList;
  */
 public class FilmMapper {
 
-    // De JSON attributen die we uitlezen
     public static final String FILM_ID = "film_id";
     public static final String TODO_TITLE = "Titel";
     public static final String TODO_DESCRIPTION = "Beschrijving";
     public static final String TODO_UPDATED_AT = "LaatstGewijzigdOp";
     public static final String TODO_STATUS = "Status";
 
-    /**
-     * Map het JSON response op een arraylist en retourneer deze.
-     */
     public static ArrayList<Film> filmArrayList(JSONObject response){
 
         ArrayList<Film> result = new ArrayList<>();
 
         try{
-            JSONArray jsonArray = response.getJSONArray(FILM_ID);
+            JSONArray jsonObj = response.getJSONArray("result");
+            Integer jsonLength = jsonObj.length();
 
-            for(int i = 0; i < jsonArray.length(); i++){
-                JSONObject jsonObject = jsonArray.getJSONObject(i);
-
-                // Convert stringdate to Date
-                String timestamp = jsonObject.getString(TODO_UPDATED_AT);
-
+            for(int i = 0; i < jsonLength; i++){
+                JSONObject jsonObject = jsonObj.getJSONObject(i);
 
                 Film film = new Film(
-                      jsonObject.getInt("film_id"),
-                       jsonObject.getInt("rental_duration"),
-                        jsonObject.getInt("lenght"),
+                        jsonObject.getInt("film_id"),
+                        jsonObject.getInt("rental_duration"),
+                        jsonObject.getInt("length"),
                         jsonObject.getString("title"),
                         jsonObject.getString("description"),
                         jsonObject.getString("release_year"),
                         jsonObject.getString("rating"),
                         jsonObject.getDouble("rental_rate"),
-                        jsonObject.getDouble("replacement_cose")
-                      //  todoDateTime
+                        jsonObject.getDouble("replacement_cost")
                 );
-                // Log.i("ToDoMapper", "ToDo: " + toDo);
                 result.add(film);
-
+                Log.i("Jsonobject film", film.getTitle());
             }
         } catch( JSONException ex) {
             Log.e("ToDoMapper", "onPostExecute JSONException " + ex.getLocalizedMessage());
