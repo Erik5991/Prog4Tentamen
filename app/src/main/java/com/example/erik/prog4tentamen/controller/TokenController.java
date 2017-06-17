@@ -7,12 +7,12 @@ import android.content.SharedPreferences;
  * Created by Teunvz on 15-6-2017.
  */
 
-public class tokenController {
+public class TokenController {
     private Context context;
     private SharedPreferences tokenSharedPreference;
 
 
-    public tokenController(Context activityContext){
+    public TokenController(Context activityContext){
         context = activityContext;
         tokenSharedPreference = context.getSharedPreferences("token", context.MODE_PRIVATE);
     }

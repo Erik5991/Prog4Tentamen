@@ -17,8 +17,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.erik.prog4tentamen.R;
 import com.example.erik.prog4tentamen.controller.VolleyRequestQueue;
-import com.example.erik.prog4tentamen.controller.baseAPI;
-import com.example.erik.prog4tentamen.controller.tokenController;
+import com.example.erik.prog4tentamen.activities.Data.BaseAPI;
+import com.example.erik.prog4tentamen.controller.TokenController;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             JSONObject jsonBody = new JSONObject(body);
             JsonObjectRequest jsObjRequest = new JsonObjectRequest
-                    (Request.Method.POST, baseAPI.URL_LOGIN, jsonBody, new Response.Listener<JSONObject>() {
+                    (Request.Method.POST, BaseAPI.URL_LOGIN, jsonBody, new Response.Listener<JSONObject>() {
 
                         @Override
                         public void onResponse(JSONObject response) {
@@ -84,12 +84,12 @@ public class MainActivity extends AppCompatActivity {
                                 String token = response.getString("token");
                                 Integer id = Integer.parseInt(response.getString("id"));
 
-                                tokenController tokenController = new tokenController(getApplicationContext());
+                                TokenController TokenController = new TokenController(getApplicationContext());
 
-                                tokenController.setToken(token);
-                                tokenController.setID(id);
+                                TokenController.setToken(token);
+                                TokenController.setID(id);
 
-                                Intent main = new Intent(getApplicationContext(), RegisterActivity.class);
+                                Intent main = new Intent(getApplicationContext(), HomeActivity.class);
                                 main.putExtra("token", token);
                                 main.putExtra("id", id);
                                 startActivity(main);

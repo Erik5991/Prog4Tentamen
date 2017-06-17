@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.erik.prog4tentamen.R;
+import com.example.erik.prog4tentamen.activities.Utils.FilmMapper;
 import com.example.erik.prog4tentamen.objects.Film;
 
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ public class FilmAdapter extends BaseAdapter {
 
     private final String TAG = this.getClass().getSimpleName();
 
+    private FilmMapper filmMapper;
 
     private Context mContext;
     private LayoutInflater mInflator;
@@ -78,11 +80,11 @@ public class FilmAdapter extends BaseAdapter {
             Log.i(TAG, "convertView BESTOND AL - hergebruik");
             viewHolder = (ViewHolder) convertView.getTag();
         }
-
+        filmMapper = new FilmMapper();
         Film film = filmArrayList.get(position);
-        viewHolder.textViewTitle.setText("Title" + film.getTitle());
-        viewHolder.textViewDescription.setText("Description" + film.getDescription());
-        viewHolder.textViewDuration.setText("Duration");
+        viewHolder.textViewTitle.setText(film.getTitle());
+        viewHolder.textViewDescription.setText(film.getDescription());
+        viewHolder.textViewDuration.setText(film.getLength());
         //new ImageLoader(viewHolder.imageView).execute(product.getSmallImgUrl());
 
         return convertView;

@@ -16,7 +16,7 @@ public class Film {
 
     public Film(){}
 
-    public Film(Integer film_id, Integer rental_duration, Integer length, String title, String description, String release_year, String rating, ArrayList<String> special_features, Double rental_rate, Double replacement_cost){
+    public Film(Integer film_id, Integer rental_duration, Integer length, String title, String description, String release_year, String rating,  Double rental_rate, Double replacement_cost){
         this.film_id = film_id;
         this.rental_duration = rental_duration;
         this.length = length;
