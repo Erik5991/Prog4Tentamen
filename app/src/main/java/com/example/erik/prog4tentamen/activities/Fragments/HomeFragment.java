@@ -89,6 +89,7 @@ public class HomeFragment extends BaseFragment implements Filmrequest.FilmListen
         });
 
         getFilms();
+        getRentalByID(1);
     }
 
     private void createInfoDialog() {
@@ -110,10 +111,11 @@ public class HomeFragment extends BaseFragment implements Filmrequest.FilmListen
     }
 
     @Override
-    public void onFilmAvailible(Film film) {
-        filmArrayList.add(film);
-        filmAdapter.notifyDataSetChanged();
+    public void onFilmAvailible(ArrayList inventoryid) {
+        Log.i("Grote inventory id list" , inventoryid.size() + "");
+        Log.i("alle items", inventoryid.toString());
     }
+
 
     @Override
     public void onToDosError(String message) {
@@ -130,6 +132,11 @@ public class HomeFragment extends BaseFragment implements Filmrequest.FilmListen
     private void getFilmsByName(String title){
         Filmrequest request = new Filmrequest(getContext(), this);
         request.getAllFilmsByName(title);
+    }
+
+    private void getRentalByID(Integer filmID){
+        Filmrequest request = new Filmrequest(getContext(), this);
+        request.getFilmByID(filmID);
     }
 }
 

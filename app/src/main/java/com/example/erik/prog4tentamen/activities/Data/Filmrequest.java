@@ -122,12 +122,49 @@ public class Filmrequest {
         VolleyRequestQueue.getInstance(context).addToRequestQueue(jsObjRequest);
     }
 
+    public void getFilmByID(Integer filmid) {
+
+        tokenController = new TokenController(context.getApplicationContext());
+        final String token = tokenController.getToken();
+
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest(
+                Request.Method.GET,
+                BaseAPI.URL_FILMBYID + filmid,
+                new JSONObject(),
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // Succesvol response
+                        Log.i(TAG, response.toString());
+                        listener.onFilmAvailible(FilmMapper.getinvnetoryByID(response));
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // handleErrorResponse(error);
+                        Log.e(TAG, error.toString());
+                    }
+                }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Content-Type", "application/json");
+                headers.put("Authorization", "Bearer " + token);
+                return headers;
+            }
+        };
+
+        // Access the RequestQueue through your singleton class.
+        VolleyRequestQueue.getInstance(context).addToRequestQueue(jsObjRequest);
+    }
+
     public interface FilmListener {
         // Callback function to return a fresh list of ToDos
         void onFilmsAvailible(ArrayList<Film> films);
 
         // Callback function to handle a single added ToDo.
-        void onFilmAvailible(Film film);
+        void onFilmAvailible(ArrayList inventoryid);
 
         // Callback to handle serverside API errors
         void onToDosError(String message);
