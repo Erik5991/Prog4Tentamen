@@ -1,12 +1,13 @@
 package com.example.erik.prog4tentamen.objects;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by Teunvz on 15-6-2017.
  */
 
-public class Film {
+public class Film implements Serializable {
     private int film_id;
     private int rental_duration;
     private int length;
