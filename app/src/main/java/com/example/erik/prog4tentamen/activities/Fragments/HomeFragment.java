@@ -1,5 +1,6 @@
 package com.example.erik.prog4tentamen.activities.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -16,12 +17,15 @@ import android.widget.TextView;
 
 import com.android.volley.Response;
 import com.example.erik.prog4tentamen.R;
+import com.example.erik.prog4tentamen.activities.Activity.FilmDetailActivity;
 import com.example.erik.prog4tentamen.activities.Adapter.FilmAdapter;
 import com.example.erik.prog4tentamen.activities.Data.Filmrequest;
 import com.example.erik.prog4tentamen.activities.FilmListener;
 import com.example.erik.prog4tentamen.activities.Utils.FilmMapper;
 import com.example.erik.prog4tentamen.controller.TokenController;
 import com.example.erik.prog4tentamen.objects.Film;
+import com.example.erik.prog4tentamen.objects.Inventoryid;
+import com.example.erik.prog4tentamen.objects.Rental;
 
 import java.util.ArrayList;
 
@@ -32,7 +36,6 @@ import java.util.ArrayList;
 public class HomeFragment extends BaseFragment implements Filmrequest.FilmListener{
 
     public final String TAG = this.getClass().getSimpleName();
-    public final static String EXTRA_FILM = "FILM";
 
     private FilmMapper filmMapper;
     private ListView filmListView;
@@ -63,10 +66,10 @@ public class HomeFragment extends BaseFragment implements Filmrequest.FilmListen
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Film film = filmArrayList.get(position);
-               // Intent intent = new Intent(getActivity().getApplicationContext(), FilmDetailActivity.class);
-             //   intent.putExtra(EXTRA_FILM,film.toString());
-              //  startActivity(intent);
-                createInfoDialog();
+                Intent intent = new Intent(getActivity().getApplicationContext(), FilmDetailActivity.class);
+                intent.putExtra("film", film);
+                startActivity(intent);
+//                createInfoDialog();
             }
         });
 
@@ -89,6 +92,7 @@ public class HomeFragment extends BaseFragment implements Filmrequest.FilmListen
         });
 
         getFilms();
+        getRentalByID(1);
     }
 
     private void createInfoDialog() {
@@ -96,7 +100,6 @@ public class HomeFragment extends BaseFragment implements Filmrequest.FilmListen
         View mView = mActivity.getLayoutInflater().inflate(R.layout.detail_film_layout, null);
         AlertDialog dialog = new AlertDialog.Builder(mActivity).setView(mView).create();
         dialog.show();
-
     }
 
     @Override
@@ -110,17 +113,35 @@ public class HomeFragment extends BaseFragment implements Filmrequest.FilmListen
     }
 
     @Override
+    public void onInventoryAvailible(ArrayList<Inventoryid> inventoryid) {
+        Log.i("Grote inventory id list" , inventoryid.size() + "");
+        Log.i("alle items", inventoryid.toString());
+    }
+
+    @Override
+    public void onRentalsAvailible(ArrayList<Rental> rentals) {
+
+    }
+
+    @Override
+    public void onRentalMade(String status) {
+
+    }
+
+    @Override
+    public void onRentalReturned(String status) {
+
+    }
+
+    @Override
     public void onFilmAvailible(Film film) {
-        filmArrayList.add(film);
-        filmAdapter.notifyDataSetChanged();
+        Log.i("Film titele", film.getTitle());
     }
 
     @Override
     public void onToDosError(String message) {
 
     }
-
-
 
     private void getFilms(){
         Filmrequest request = new Filmrequest(getContext(), this);
@@ -130,6 +151,11 @@ public class HomeFragment extends BaseFragment implements Filmrequest.FilmListen
     private void getFilmsByName(String title){
         Filmrequest request = new Filmrequest(getContext(), this);
         request.getAllFilmsByName(title);
+    }
+
+    private void getRentalByID(Integer filmID){
+        Filmrequest request = new Filmrequest(getContext(), this);
+        request.getInventoryByID(filmID);
     }
 }
 

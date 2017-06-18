@@ -7,11 +7,14 @@ package com.example.erik.prog4tentamen.activities.Utils;
 import android.util.Log;
 
 import com.example.erik.prog4tentamen.objects.Film;
+import com.example.erik.prog4tentamen.objects.Inventoryid;
+import com.example.erik.prog4tentamen.objects.Rental;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.sql.Date;
 import java.util.ArrayList;
 
 /**
@@ -53,6 +56,106 @@ public class FilmMapper {
         } catch( JSONException ex) {
             Log.e("ToDoMapper", "onPostExecute JSONException " + ex.getLocalizedMessage());
         }
+        return result;
+    }
+
+    public static ArrayList<Inventoryid> getinvnetoryByID (JSONObject response){
+
+        ArrayList<Inventoryid> inventoryidList = new ArrayList<>();
+        ArrayList<Integer> allCopysoutlist = new ArrayList<>();
+
+        try{
+
+            JSONArray allcopys = response.getJSONArray("allcopys");
+            JSONArray allcopysout = response.getJSONArray("rentedout");
+            Integer allcopysLength = allcopys.length();
+            Integer allcopysoutLength = allcopysout.length();
+
+            for(int i = 0; i < allcopysoutLength; i++) {
+                JSONObject jsonObject = allcopysout.getJSONObject(i);
+                allCopysoutlist.add(jsonObject.getInt("inventory_id"));
+            }
+
+            for(int i = 0; i < allcopysLength; i++){
+                JSONObject jsonObject = allcopys.getJSONObject(i);
+                Integer inventoryid = jsonObject.getInt("inventory_id");
+
+                if(allCopysoutlist.contains(inventoryid)){
+                    Inventoryid id = new Inventoryid(inventoryid, "Unavailable");
+                    inventoryidList.add(id);
+                }
+                else {
+                    Inventoryid id = new Inventoryid(inventoryid, "Available");
+                    inventoryidList.add(id);
+                }
+            }
+
+
+        } catch( JSONException ex) {
+            Log.e("ToDoMapper", "onPostExecute JSONException " + ex.getLocalizedMessage());
+        }
+        return inventoryidList;
+    }
+
+    public static Film getFilmByID (JSONObject response){
+
+        Film result = null;
+
+        try{
+            JSONArray jsonObj = response.getJSONArray("result");
+            Integer jsonLength = jsonObj.length();
+
+            for(int i = 0; i < jsonLength; i++){
+                JSONObject jsonObject = jsonObj.getJSONObject(i);
+
+                Film film = new Film(
+                        jsonObject.getInt("film_id"),
+                        jsonObject.getInt("rental_duration"),
+                        jsonObject.getInt("length"),
+                        jsonObject.getString("title"),
+                        jsonObject.getString("description"),
+                        jsonObject.getString("release_year"),
+                        jsonObject.getString("rating"),
+                        jsonObject.getDouble("rental_rate"),
+                        jsonObject.getDouble("replacement_cost")
+                );
+                result = film;
+                Log.i("Jsonobject film", film.getTitle());
+            }
+        } catch( JSONException ex) {
+            Log.e("ToDoMapper", "onPostExecute JSONException " + ex.getLocalizedMessage());
+        }
+
+        return result;
+    }
+
+    public static ArrayList<Rental> getRentalByID(JSONObject response){
+
+        ArrayList<Rental> result = new ArrayList<>();
+
+        try{
+            JSONArray jsonObj = response.getJSONArray("result");
+            Integer jsonLength = jsonObj.length();
+
+            for(int i = 0; i < jsonLength; i++){
+                JSONObject jsonObject = jsonObj.getJSONObject(i);
+
+                Rental rental = new Rental(
+                        jsonObject.getInt("inventory_id"),
+                        jsonObject.getInt("rental_duration"),
+                        jsonObject.getDouble("rental_rate"),
+                        jsonObject.getString("title"),
+                        jsonObject.getString("rental_date"),
+                        jsonObject.getString("return_date")
+                );
+
+                result.add(rental);
+                Log.i("Jsonobject film", rental.getTitle());
+            }
+        } catch( JSONException ex) {
+            Log.e("ToDoMapper", "onPostExecute JSONException " + ex.getLocalizedMessage());
+        }
+
         return result;
     }
 }
