@@ -20,6 +20,7 @@ import com.example.erik.prog4tentamen.activities.Data.Filmrequest;
 import com.example.erik.prog4tentamen.controller.TokenController;
 import com.example.erik.prog4tentamen.objects.Film;
 import com.example.erik.prog4tentamen.objects.Inventoryid;
+import com.example.erik.prog4tentamen.objects.Rental;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,7 +37,7 @@ public class FilmDetailActivity extends AppCompatActivity  implements Filmreques
     private ArrayList<Inventoryid> inventoryids = new ArrayList<>();
     private ListView listViewInventoryids;
     private InventoryAdapter inventoryAdapter;
-    private Integer inventoryID;
+    private Integer filmID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +83,7 @@ public class FilmDetailActivity extends AppCompatActivity  implements Filmreques
             }
         });
 
-        inventoryID = film.getFilm_id();
+        filmID = film.getFilm_id();
         getInventoryIDs(film.getFilm_id());
     }
 
@@ -150,9 +151,19 @@ public class FilmDetailActivity extends AppCompatActivity  implements Filmreques
     }
 
     @Override
+    public void onRentalsAvailible(ArrayList<Rental> rentals) {
+
+    }
+
+    @Override
     public void onRentalMade(String status) {
         displayMessage(status);
-        getInventoryIDs(inventoryID);
+        getInventoryIDs(filmID);
+    }
+
+    @Override
+    public void onRentalReturned(String status) {
+
     }
 
     @Override

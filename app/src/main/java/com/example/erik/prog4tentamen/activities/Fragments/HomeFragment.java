@@ -25,6 +25,7 @@ import com.example.erik.prog4tentamen.activities.Utils.FilmMapper;
 import com.example.erik.prog4tentamen.controller.TokenController;
 import com.example.erik.prog4tentamen.objects.Film;
 import com.example.erik.prog4tentamen.objects.Inventoryid;
+import com.example.erik.prog4tentamen.objects.Rental;
 
 import java.util.ArrayList;
 
@@ -118,7 +119,17 @@ public class HomeFragment extends BaseFragment implements Filmrequest.FilmListen
     }
 
     @Override
+    public void onRentalsAvailible(ArrayList<Rental> rentals) {
+
+    }
+
+    @Override
     public void onRentalMade(String status) {
+
+    }
+
+    @Override
+    public void onRentalReturned(String status) {
 
     }
 

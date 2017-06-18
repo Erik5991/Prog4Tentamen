@@ -19,9 +19,8 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="18dp"
-        android:text="TextView"
+        android:text="Your rent history"
         android:textColor="@color/colorPrimary"
-        android:textSize="26sp"
-        tools:text="Your rent history" />
+        android:textSize="26sp" />
 
 </RelativeLayout>

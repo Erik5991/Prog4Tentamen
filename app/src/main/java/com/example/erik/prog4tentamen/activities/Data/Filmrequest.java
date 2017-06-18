@@ -14,6 +14,7 @@ import com.example.erik.prog4tentamen.controller.TokenController;
 import com.example.erik.prog4tentamen.controller.VolleyRequestQueue;
 import com.example.erik.prog4tentamen.objects.Film;
 import com.example.erik.prog4tentamen.objects.Inventoryid;
+import com.example.erik.prog4tentamen.objects.Rental;
 
 import org.json.JSONObject;
 
@@ -231,12 +232,85 @@ public class Filmrequest {
         VolleyRequestQueue.getInstance(context).addToRequestQueue(jsObjRequest);
     }
 
+    public void getRentalsByID(Integer userID) {
+
+        tokenController = new TokenController(context.getApplicationContext());
+        final String token = tokenController.getToken();
+
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest(
+                Request.Method.GET,
+                BaseAPI.URL_MAKERENTAL + userID,
+                new JSONObject(),
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        listener.onRentalsAvailible(FilmMapper.getRentalByID(response));
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e(TAG, error.toString());
+                        Log.e("error hier", error.toString());
+                    }
+                }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Content-Type", "application/json");
+                headers.put("Authorization", "Bearer " + token);
+                return headers;
+            }
+        };
+
+        // Access the RequestQueue through your singleton class.
+        VolleyRequestQueue.getInstance(context).addToRequestQueue(jsObjRequest);
+    }
+
+    public void makeRentalreturn(Integer inventoryID, Integer userID) {
+
+        tokenController = new TokenController(context.getApplicationContext());
+        final String token = tokenController.getToken();
+
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest(
+                Request.Method.PUT,
+                BaseAPI.URL_MAKERENTAL + userID + "/" + inventoryID,
+                new JSONObject(),
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        listener.onRentalReturned("Movie returned");
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e(TAG, error.toString());
+                    }
+                }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Content-Type", "application/json");
+                headers.put("Authorization", "Bearer " + token);
+                return headers;
+            }
+        };
+
+        // Access the RequestQueue through your singleton class.
+        VolleyRequestQueue.getInstance(context).addToRequestQueue(jsObjRequest);
+    }
+
     public interface FilmListener {
         void onFilmsAvailible(ArrayList<Film> films);
 
         void onInventoryAvailible(ArrayList<Inventoryid> inventoryid);
 
+        void onRentalsAvailible(ArrayList<Rental> rentals);
+
         void onRentalMade(String status);
+
+        void onRentalReturned(String status);
 
         void onFilmAvailible(Film film);
 
