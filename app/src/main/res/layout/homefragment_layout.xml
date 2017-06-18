@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/backgroundpurple"
+    android:orientation="vertical">
 
     <ListView
         android:id="@+id/filmListView"
@@ -20,17 +22,20 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="13dp"
         android:ems="10"
+        android:hint="Title"
         android:inputType="textPersonName"
-        android:text="Name" />
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white" />
 
     <Button
         android:id="@+id/zoekKnop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/editTextStrig"
-        android:layout_marginLeft="11dp"
-        android:layout_marginStart="11dp"
+        android:layout_width="125dp"
+        android:layout_height="30dp"
+        android:layout_alignBottom="@+id/editTextStrig"
         android:layout_toEndOf="@+id/editTextStrig"
         android:layout_toRightOf="@+id/editTextStrig"
-        android:text="Zoek" />
+        android:background="@drawable/round_btn"
+        android:paddingBottom="10dp"
+        android:text="Zoek"
+        android:textColor="@android:color/white" />
 </RelativeLayout>

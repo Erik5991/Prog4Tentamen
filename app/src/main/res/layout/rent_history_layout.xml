@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/backgroundpurple">
 
     <ListView
         android:id="@+id/filmListView"
@@ -19,9 +20,8 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="18dp"
-        android:text="TextView"
-        android:textColor="@color/colorPrimary"
-        android:textSize="26sp"
-        tools:text="Your rent history" />
+        android:text="Your rent history"
+        android:textColor="@android:color/white"
+        android:textSize="26sp" />
 
 </RelativeLayout>

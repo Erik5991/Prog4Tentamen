@@ -13,6 +13,7 @@ public interface FilmListener {
     void FilmAvailable(ArrayList<Film> filmArrayList);
     void onFilmAvailible(Film film);
     void onError();
+
 }
 
 
