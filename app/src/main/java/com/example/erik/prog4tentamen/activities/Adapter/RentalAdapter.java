@@ -87,8 +87,8 @@ public class RentalAdapter extends BaseAdapter {
         }
 
         viewHolder.textViewTitle.setText(rental.getTitle());
-        viewHolder.textViewDate.setText(rental.getRental_date());
-        viewHolder.textViewReturnDate.setText(returndate);
+        viewHolder.textViewDate.setText(rental.getRental_date().split("T")[0]);
+        viewHolder.textViewReturnDate.setText(returndate.split("T")[0]);
         viewHolder.textViewRentalRate.setText("€ " + rental.getRental_rate());
 
         return convertView;
