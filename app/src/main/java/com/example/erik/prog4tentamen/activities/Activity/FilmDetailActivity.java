@@ -29,16 +29,16 @@ public class FilmDetailActivity extends AppCompatActivity {
 
         titleTextView = (TextView) findViewById(R.id.textViewTitle);
         textViewavailable = (TextView) findViewById(R.id.textViewavailable);
-        rateTextView = (TextView) findViewById(R.id.rateTextView);
+         rateTextView = (TextView) findViewById(R.id.rateTextView);
         textViewDescription = (TextView) findViewById(R.id.textViewDescription);
 
         Bundle extras = getIntent().getExtras();
 
         Film film = (Film) extras.getSerializable(EXTRA_FILM);
-        titleTextView.setText("test");
-        // textViewavailable.setText("");
-        //  rateTextView.setText(film.getRental_rate().toString());
-        //  textViewDescription.setText(film.getDescription());
+        titleTextView.setText("f");
+       // textViewavailable.setText("");
+      //  rateTextView.setText(film.getRental_rate().toString());
+      //  textViewDescription.setText(film.getDescription());
 
 
 }}

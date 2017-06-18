@@ -21,7 +21,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.Activity.RegisterActivity" />
-        <activity android:name=".activities.Activity.FilmDetailActivity"/>
+        <activity android:name=".activities.Activity.FilmDetailActivity"
+                  android:label="FilmDetailActivity"/>
         <activity
             android:name=".activities.Activity.HomeActivity"
             android:label="@string/title_activity_home"
