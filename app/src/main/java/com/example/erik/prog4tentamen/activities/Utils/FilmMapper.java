@@ -8,11 +8,13 @@ import android.util.Log;
 
 import com.example.erik.prog4tentamen.objects.Film;
 import com.example.erik.prog4tentamen.objects.Inventoryid;
+import com.example.erik.prog4tentamen.objects.Rental;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.sql.Date;
 import java.util.ArrayList;
 
 /**
@@ -119,6 +121,36 @@ public class FilmMapper {
                 );
                 result = film;
                 Log.i("Jsonobject film", film.getTitle());
+            }
+        } catch( JSONException ex) {
+            Log.e("ToDoMapper", "onPostExecute JSONException " + ex.getLocalizedMessage());
+        }
+
+        return result;
+    }
+
+    public static ArrayList<Rental> getRentalByID(JSONObject response){
+
+        ArrayList<Rental> result = new ArrayList<>();
+
+        try{
+            JSONArray jsonObj = response.getJSONArray("result");
+            Integer jsonLength = jsonObj.length();
+
+            for(int i = 0; i < jsonLength; i++){
+                JSONObject jsonObject = jsonObj.getJSONObject(i);
+
+                Rental rental = new Rental(
+                        jsonObject.getInt("inventory_id"),
+                        jsonObject.getInt("rental_duration"),
+                        jsonObject.getDouble("rental_rate"),
+                        jsonObject.getString("title"),
+                        jsonObject.getString("rental_date"),
+                        jsonObject.getString("return_date")
+                );
+
+                result.add(rental);
+                Log.i("Jsonobject film", rental.getTitle());
             }
         } catch( JSONException ex) {
             Log.e("ToDoMapper", "onPostExecute JSONException " + ex.getLocalizedMessage());
