@@ -16,6 +16,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.erik.prog4tentamen.R;
+
+
 import com.example.erik.prog4tentamen.controller.VolleyRequestQueue;
 import com.example.erik.prog4tentamen.activities.Data.BaseAPI;
 import com.example.erik.prog4tentamen.controller.TokenController;
@@ -51,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         buttonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), HomeActivity.class);
+                Intent i = new Intent(getApplicationContext(), RegisterActivity.class);
                 startActivity(i);
             }
         });
