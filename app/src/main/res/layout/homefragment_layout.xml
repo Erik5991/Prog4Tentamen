@@ -20,8 +20,8 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="13dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name" />
+        android:hint="Title"
+        android:inputType="textPersonName" />
 
     <Button
         android:id="@+id/zoekKnop"
