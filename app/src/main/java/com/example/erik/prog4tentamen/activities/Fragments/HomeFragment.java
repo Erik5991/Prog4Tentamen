@@ -118,6 +118,11 @@ public class HomeFragment extends BaseFragment implements Filmrequest.FilmListen
     }
 
     @Override
+    public void onRentalMade(String status) {
+
+    }
+
+    @Override
     public void onFilmAvailible(Film film) {
         Log.i("Film titele", film.getTitle());
     }

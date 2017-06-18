@@ -1,5 +1,6 @@
 package com.example.erik.prog4tentamen.activities.Activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -16,6 +17,7 @@ import com.example.erik.prog4tentamen.R;
 import com.example.erik.prog4tentamen.activities.Adapter.FilmAdapter;
 import com.example.erik.prog4tentamen.activities.Adapter.InventoryAdapter;
 import com.example.erik.prog4tentamen.activities.Data.Filmrequest;
+import com.example.erik.prog4tentamen.controller.TokenController;
 import com.example.erik.prog4tentamen.objects.Film;
 import com.example.erik.prog4tentamen.objects.Inventoryid;
 
@@ -34,6 +36,7 @@ public class FilmDetailActivity extends AppCompatActivity  implements Filmreques
     private ArrayList<Inventoryid> inventoryids = new ArrayList<>();
     private ListView listViewInventoryids;
     private InventoryAdapter inventoryAdapter;
+    private Integer inventoryID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +55,7 @@ public class FilmDetailActivity extends AppCompatActivity  implements Filmreques
 
 
         Intent intent = getIntent();
-        Film film = (Film)intent.getSerializableExtra("film");
+        final Film film = (Film)intent.getSerializableExtra("film");
 
         textViewTitle.setText(film.getTitle().toLowerCase());
         textViewDescription.setText(film.getDescription());
@@ -69,18 +72,52 @@ public class FilmDetailActivity extends AppCompatActivity  implements Filmreques
         inventoryListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                createInfoDialog();
+                if (inventoryids.get(position).getStatus() == "Available"){
+                    showAlert(film, inventoryids.get(position));
+                }
+                else {
+                    showAlertnot(film);
+                }
+
             }
         });
 
+        inventoryID = film.getFilm_id();
         getInventoryIDs(film.getFilm_id());
     }
 
-    private void createInfoDialog() {
-        //View for alertDialog
-        View mView = getLayoutInflater().inflate(R.layout.detail_film_layout, null);
-        AlertDialog dialog = new AlertDialog.Builder(this).setView(mView).create();
-        dialog.show();
+    public void showAlert(Film film, final Inventoryid inventoryid){
+        AlertDialog.Builder myAlert = new AlertDialog.Builder(this);
+        myAlert.setMessage("Do you agree to rent "+ film.getTitle() +  " for €" + String.format("%.2f", film.getRental_rate()) +  " p/" + film.getRental_duration() + " days")
+                .setPositiveButton("Accept", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        TokenController tokenController = new TokenController(getApplicationContext());
+                        makeRental(inventoryid.getInventoryid(), Integer.parseInt(tokenController.getID()));
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                })
+                .create();
+        myAlert.show();
+    }
+
+    public void showAlertnot(final Film film){
+        AlertDialog.Builder myAlert = new AlertDialog.Builder(this);
+        myAlert.setMessage(film.getTitle() +  " is unavailable to rent at this moment")
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .create();
+        myAlert.show();
     }
 
     private void getInventoryIDs(Integer filmID){
@@ -88,24 +125,15 @@ public class FilmDetailActivity extends AppCompatActivity  implements Filmreques
         request.getInventoryByID(filmID);
     }
 
-
-    public String trimMessage(String json, String key){
-        String trimmedString = null;
-
-        try{
-            JSONObject obj = new JSONObject(json);
-            trimmedString = obj.getString(key);
-        } catch(JSONException e){
-            e.printStackTrace();
-            return null;
-        }
-        return trimmedString;
+    private void makeRental(Integer inventoryID, Integer userID){
+        Filmrequest request = new Filmrequest(getApplicationContext(), this);
+        request.makeRental(inventoryID, userID);
     }
 
-    // TODO Verplaats displayMessage naar een centrale 'utility class' voor gebruik in alle classes.
     public void displayMessage(String toastString){
         Toast.makeText(getApplicationContext(), toastString, Toast.LENGTH_LONG).show();
     }
+
 
     @Override
     public void onFilmsAvailible(ArrayList<Film> films) {
@@ -114,13 +142,17 @@ public class FilmDetailActivity extends AppCompatActivity  implements Filmreques
 
     @Override
     public void onInventoryAvailible(ArrayList<Inventoryid> inventoryid) {
-        Log.i("inventoryid", inventoryid.size() + "");
-
         inventoryids.clear();
         for(int i = 0; i < inventoryid.size(); i++) {
             inventoryids.add(inventoryid.get(i));
         }
         inventoryAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onRentalMade(String status) {
+        displayMessage(status);
+        getInventoryIDs(inventoryID);
     }
 
     @Override

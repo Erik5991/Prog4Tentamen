@@ -32,9 +32,6 @@ public class InventoryAdapter extends BaseAdapter {
         this.mContext = mContext;
         this.mInflator = mInflator;
         this.inventoryArrayList = inventoryArrayList;
-
-        Log.i("Inventory adapter", "Komt hier");
-        Log.i("inventory size", inventoryArrayList.size() + " hier");
     }
 
     @Override
@@ -62,27 +59,19 @@ public class InventoryAdapter extends BaseAdapter {
 
         ViewHolder viewHolder;
         if (convertView == null) {
-
-            Log.i(TAG, "convertView is NULL - nieuwe maken");
-
-            // Koppel de convertView aan de layout van onze eigen row
             convertView = mInflator.inflate(R.layout.list_inventory_row, null);
 
-            // Maak een ViewHolder en koppel de schermvelden aan de velden uit onze eigen row.
             viewHolder = new ViewHolder();
             viewHolder.textViewInventoryID = (TextView) convertView.findViewById(R.id.textViewInventoryID);
             viewHolder.textViewAvailible = (TextView) convertView.findViewById(R.id.textViewAvailible);
 
-            // Sla de viewholder op in de convertView
             convertView.setTag(viewHolder);
 
         } else {
-            Log.i(TAG, "convertView BESTOND AL - hergebruik");
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
         Inventoryid inventoryid = inventoryArrayList.get(position);
-        Log.i("inventoryadapert", inventoryid.toString());
         viewHolder.textViewInventoryID.setText("" + inventoryid.getInventoryid());
         viewHolder.textViewAvailible.setText(inventoryid.getStatus());
 

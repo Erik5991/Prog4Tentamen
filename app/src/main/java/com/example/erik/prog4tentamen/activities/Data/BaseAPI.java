@@ -11,4 +11,5 @@ public class BaseAPI {
     public static final String URL_LOGIN = BASIC_URL + "/api/v1/login";
     public static final String URL_REGISTER = BASIC_URL + "/api/v1/register";
     public static final String URL_FILMBYID = BASIC_URL + "/api/v1/films/";
+    public static final String URL_MAKERENTAL = BASIC_URL + "/api/v1/rentals/";
 }

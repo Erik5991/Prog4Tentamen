@@ -1,4 +1,4 @@
-package com.example.erik.prog4tentamen.activities;
+package com.example.erik.prog4tentamen.activities.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
