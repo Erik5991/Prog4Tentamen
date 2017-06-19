@@ -1,4 +1,4 @@
-package com.example.erik.prog4tentamen.activities.Fragments;
+package com.example.erik.prog4tentamen.Fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

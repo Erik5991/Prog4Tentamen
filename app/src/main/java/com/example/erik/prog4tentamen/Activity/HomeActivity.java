@@ -1,4 +1,4 @@
-package com.example.erik.prog4tentamen.activities.Activity;
+package com.example.erik.prog4tentamen.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,8 +13,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.erik.prog4tentamen.R;
-import com.example.erik.prog4tentamen.activities.Fragments.FragmentController;
-import com.example.erik.prog4tentamen.controller.TokenController;
+import com.example.erik.prog4tentamen.Fragments.FragmentController;
+import com.example.erik.prog4tentamen.controller.SharedPrefferenceController;
 
 public class HomeActivity extends AppCompatActivity
 
@@ -101,6 +101,7 @@ public class HomeActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            goToSettings();
             return true;
         }
 
@@ -137,9 +138,14 @@ public class HomeActivity extends AppCompatActivity
         return true;
     }
 
+    private void goToSettings(){
+        Intent i = new Intent(getApplicationContext(), SettingsActivity.class);
+        startActivity(i);
+    }
+
     private void logout() {
-        TokenController tokenController = new TokenController(getApplicationContext());
-        tokenController.clearToken();
+        SharedPrefferenceController sharedPrefferenceController = new SharedPrefferenceController(getApplicationContext());
+        sharedPrefferenceController.clearToken();
         Intent i = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(i);
         finish();

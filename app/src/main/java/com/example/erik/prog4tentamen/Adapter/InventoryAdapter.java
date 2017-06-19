@@ -1,4 +1,4 @@
-package com.example.erik.prog4tentamen.activities.Adapter;
+package com.example.erik.prog4tentamen.Adapter;
 
 import android.content.Context;
 import android.util.Log;
@@ -6,12 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.erik.prog4tentamen.R;
-import com.example.erik.prog4tentamen.activities.Utils.FilmMapper;
-import com.example.erik.prog4tentamen.objects.Film;
 import com.example.erik.prog4tentamen.objects.Inventoryid;
 
 import java.util.ArrayList;

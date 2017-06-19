@@ -1,4 +1,4 @@
-package com.example.erik.prog4tentamen.activities.Fragments;
+package com.example.erik.prog4tentamen.Fragments;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 
 import com.example.erik.prog4tentamen.R;
-import com.example.erik.prog4tentamen.activities.Activity.HomeActivity;
+import com.example.erik.prog4tentamen.Activity.HomeActivity;
 
 /**
  * Created by Erik on 13-6-2017.

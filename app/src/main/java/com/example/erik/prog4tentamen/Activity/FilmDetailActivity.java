@@ -1,11 +1,10 @@
-package com.example.erik.prog4tentamen.activities.Activity;
+package com.example.erik.prog4tentamen.Activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -13,17 +12,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.example.erik.prog4tentamen.Data.Inventoryrequest;
+import com.example.erik.prog4tentamen.Data.Rentalrequest;
+import com.example.erik.prog4tentamen.Interfaces.InventoryListener;
+import com.example.erik.prog4tentamen.Interfaces.RentalListener;
 import com.example.erik.prog4tentamen.R;
-import com.example.erik.prog4tentamen.activities.Adapter.FilmAdapter;
-import com.example.erik.prog4tentamen.activities.Adapter.InventoryAdapter;
-import com.example.erik.prog4tentamen.activities.Data.Filmrequest;
-import com.example.erik.prog4tentamen.controller.TokenController;
+import com.example.erik.prog4tentamen.Adapter.InventoryAdapter;
+import com.example.erik.prog4tentamen.controller.SharedPrefferenceController;
 import com.example.erik.prog4tentamen.objects.Film;
 import com.example.erik.prog4tentamen.objects.Inventoryid;
 import com.example.erik.prog4tentamen.objects.Rental;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -31,11 +29,10 @@ import java.util.ArrayList;
  * Created by Erik on 15-6-2017.
  */
 
-public class FilmDetailActivity extends AppCompatActivity  implements Filmrequest.FilmListener{
+public class FilmDetailActivity extends AppCompatActivity  implements InventoryListener, RentalListener{
     private TextView textViewTitle, textViewDescription, textViewReleaseYear, textViewRentalDuration, textViewRentalRate, textViewLength, textViewReplacementCost, textViewRating;
     private ListView inventoryListView;
     private ArrayList<Inventoryid> inventoryids = new ArrayList<>();
-    private ListView listViewInventoryids;
     private InventoryAdapter inventoryAdapter;
     private Integer filmID;
 
@@ -94,8 +91,8 @@ public class FilmDetailActivity extends AppCompatActivity  implements Filmreques
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
-                        TokenController tokenController = new TokenController(getApplicationContext());
-                        makeRental(inventoryid.getInventoryid(), Integer.parseInt(tokenController.getID()));
+                        SharedPrefferenceController sharedPrefferenceController = new SharedPrefferenceController(getApplicationContext());
+                        makeRental(inventoryid.getInventoryid(), Integer.parseInt(sharedPrefferenceController.getID()));
                     }
                 })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -122,23 +119,17 @@ public class FilmDetailActivity extends AppCompatActivity  implements Filmreques
     }
 
     private void getInventoryIDs(Integer filmID){
-        Filmrequest request = new Filmrequest(getApplicationContext(), this);
+        Inventoryrequest request = new Inventoryrequest(getApplicationContext(), this);
         request.getInventoryByID(filmID);
     }
 
     private void makeRental(Integer inventoryID, Integer userID){
-        Filmrequest request = new Filmrequest(getApplicationContext(), this);
+        Rentalrequest request = new Rentalrequest(getApplicationContext(), this);
         request.makeRental(inventoryID, userID);
     }
 
     public void displayMessage(String toastString){
         Toast.makeText(getApplicationContext(), toastString, Toast.LENGTH_LONG).show();
-    }
-
-
-    @Override
-    public void onFilmsAvailible(ArrayList<Film> films) {
-
     }
 
     @Override
@@ -163,16 +154,6 @@ public class FilmDetailActivity extends AppCompatActivity  implements Filmreques
 
     @Override
     public void onRentalReturned(String status) {
-
-    }
-
-    @Override
-    public void onFilmAvailible(Film film) {
-
-    }
-
-    @Override
-    public void onToDosError(String message) {
 
     }
 }

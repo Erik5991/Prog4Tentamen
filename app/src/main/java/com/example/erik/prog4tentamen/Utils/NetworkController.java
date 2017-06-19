@@ -1,4 +1,4 @@
-package com.example.erik.prog4tentamen.activities.Utils;
+package com.example.erik.prog4tentamen.Utils;
 
 import android.content.Context;
 import android.graphics.Bitmap;
