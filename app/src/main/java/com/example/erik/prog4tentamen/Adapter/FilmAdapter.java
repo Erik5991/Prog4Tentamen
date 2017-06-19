@@ -1,4 +1,4 @@
-package com.example.erik.prog4tentamen.activities.Adapter;
+package com.example.erik.prog4tentamen.Adapter;
 
 import android.content.Context;
 import android.util.Log;
@@ -10,9 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.erik.prog4tentamen.R;
-import com.example.erik.prog4tentamen.activities.Utils.FilmMapper;
+import com.example.erik.prog4tentamen.Utils.FilmMapper;
 import com.example.erik.prog4tentamen.objects.Film;
-import com.example.erik.prog4tentamen.objects.Rental;
 
 import java.util.ArrayList;
 
@@ -20,23 +19,25 @@ import java.util.ArrayList;
  * Created by Erik on 15-6-2017.
  */
 
-public class RentalAdapter extends BaseAdapter {
+public class FilmAdapter extends BaseAdapter {
 
     private final String TAG = this.getClass().getSimpleName();
 
+    private FilmMapper filmMapper;
+
     private Context mContext;
     private LayoutInflater mInflator;
-    private ArrayList<Rental> rentalArrayList;
+    private ArrayList<Film> filmArrayList;
 
-    public RentalAdapter(Context mContext, LayoutInflater mInflator, ArrayList<Rental> rentalArrayList) {
+    public FilmAdapter(Context mContext, LayoutInflater mInflator, ArrayList<Film> filmArrayList) {
         this.mContext = mContext;
         this.mInflator = mInflator;
-        this.rentalArrayList = rentalArrayList;
+        this.filmArrayList = filmArrayList;
     }
 
     @Override
     public int getCount() {
-        int size = rentalArrayList.size();
+        int size = filmArrayList.size();
         Log.i(TAG, "getCount() =  " + size);
         return size;
     }
@@ -44,7 +45,7 @@ public class RentalAdapter extends BaseAdapter {
     @Override
     public Object getItem(int position) {
         Log.i(TAG, "getItem() at " + position);
-        return rentalArrayList.get(position);
+        return filmArrayList.get(position);
     }
 
     @Override
@@ -63,14 +64,14 @@ public class RentalAdapter extends BaseAdapter {
             Log.i(TAG, "convertView is NULL - nieuwe maken");
 
             // Koppel de convertView aan de layout van onze eigen row
-            convertView = mInflator.inflate(R.layout.list_rental_row, null);
+            convertView = mInflator.inflate(R.layout.list_film_row, null);
 
             // Maak een ViewHolder en koppel de schermvelden aan de velden uit onze eigen row.
             viewHolder = new ViewHolder();
             viewHolder.textViewTitle = (TextView) convertView.findViewById(R.id.textViewTitle);
-            viewHolder.textViewDate = (TextView) convertView.findViewById(R.id.textViewRentalDate);
-            viewHolder.textViewReturnDate = (TextView) convertView.findViewById(R.id.textViewReturnDate);
-            viewHolder.textViewRentalRate = (TextView) convertView.findViewById(R.id.textViewRentalRate);
+            viewHolder.textViewDescription = (TextView) convertView.findViewById(R.id.textViewDescription);
+            viewHolder.textViewDuration = (TextView) convertView.findViewById(R.id.textViewDuration);
+           // viewHolder.imageView = (ImageView) convertView.findViewById(R.id.smallImageView);
 
             // Sla de viewholder op in de convertView
             convertView.setTag(viewHolder);
@@ -79,26 +80,20 @@ public class RentalAdapter extends BaseAdapter {
             Log.i(TAG, "convertView BESTOND AL - hergebruik");
             viewHolder = (ViewHolder) convertView.getTag();
         }
-
-        Rental rental = rentalArrayList.get(position);
-        String returndate = rental.getReturn_date();
-        if(returndate.toString() == "null"){
-            returndate = "Not yet returned";
-        }
-
-        viewHolder.textViewTitle.setText(rental.getTitle());
-        viewHolder.textViewDate.setText(rental.getRental_date().split("T")[0]);
-        viewHolder.textViewReturnDate.setText(returndate.split("T")[0]);
-        viewHolder.textViewRentalRate.setText("€ " + rental.getRental_rate());
+        filmMapper = new FilmMapper();
+        Film film = filmArrayList.get(position);
+        viewHolder.textViewTitle.setText(film.getTitle());
+        viewHolder.textViewDescription.setText(film.getDescription());
+        viewHolder.textViewDuration.setText(film.getLength() + " Min");
 
         return convertView;
     }
 
     private static class ViewHolder {
         public TextView textViewTitle;
-        public TextView textViewDate;
-        public TextView textViewReturnDate;
-        public TextView textViewRentalRate;
+        public TextView textViewDescription;
+        public TextView textViewDuration;
+        public ImageView imageView;
     }
 
 

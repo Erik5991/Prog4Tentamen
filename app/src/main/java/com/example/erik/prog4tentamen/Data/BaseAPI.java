@@ -1,4 +1,4 @@
-package com.example.erik.prog4tentamen.activities.Data;
+package com.example.erik.prog4tentamen.Data;
 
 /**
  * Created by Teunvz on 13-6-2017.
