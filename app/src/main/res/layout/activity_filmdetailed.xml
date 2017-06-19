@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/backgroundpurple">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,13 +31,15 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Title" />
+                        android:text="Title"
+                        android:textColor="@android:color/white" />
 
                     <TextView
                         android:id="@+id/textViewTitle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2" />
+                        android:layout_weight="2"
+                        android:textColor="@android:color/white" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -50,13 +53,15 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Description" />
+                        android:text="Description"
+                        android:textColor="@android:color/white" />
 
                     <TextView
                         android:id="@+id/textViewDescription"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2" />
+                        android:layout_weight="2"
+                        android:textColor="@android:color/white" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -70,13 +75,15 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Length" />
+                        android:text="Length"
+                        android:textColor="@android:color/white" />
 
                     <TextView
                         android:id="@+id/textViewLength"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2" />
+                        android:layout_weight="2"
+                        android:textColor="@android:color/white" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -90,13 +97,15 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Release year" />
+                        android:text="Release year"
+                        android:textColor="@android:color/white" />
 
                     <TextView
                         android:id="@+id/textViewReleaseYear"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2" />
+                        android:layout_weight="2"
+                        android:textColor="@android:color/white" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -110,13 +119,15 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Rating" />
+                        android:text="Rating"
+                        android:textColor="@android:color/white" />
 
                     <TextView
                         android:id="@+id/textViewRating"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2" />
+                        android:layout_weight="2"
+                        android:textColor="@android:color/white" />
                 </LinearLayout>
 
                 <View
@@ -136,13 +147,15 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Rental duration" />
+                        android:text="Rental duration"
+                        android:textColor="@android:color/white" />
 
                     <TextView
                         android:id="@+id/textViewRentalDuration"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2" />
+                        android:layout_weight="2"
+                        android:textColor="@android:color/white" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -156,13 +169,15 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Rental rate" />
+                        android:text="Rental rate"
+                        android:textColor="@android:color/white" />
 
                     <TextView
                         android:id="@+id/textViewRentalRate"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2" />
+                        android:layout_weight="2"
+                        android:textColor="@android:color/white" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -176,13 +191,15 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Replacement cost" />
+                        android:text="Replacement cost"
+                        android:textColor="@android:color/white" />
 
                     <TextView
                         android:id="@+id/textViewReplacementCost"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2" />
+                        android:layout_weight="2"
+                        android:textColor="@android:color/white" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -199,7 +216,7 @@
             android:id="@+id/inventoryListView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="2"/>
+            android:layout_weight="1.59"/>
 
     </LinearLayout>
 

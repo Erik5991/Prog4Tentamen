@@ -44,7 +44,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String username = editTextUsername.getText().toString();
                 String password = editTextPassword.getText().toString();
-
+                if (username.isEmpty() || password.isEmpty()){
+                    Toast.makeText(getApplicationContext(), "Alle velden invullen!", Toast.LENGTH_SHORT).show();
+                }
                 handleLogin(username, password);
             }
         });

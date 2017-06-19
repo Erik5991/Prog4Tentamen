@@ -19,14 +19,16 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Title" />
+            android:text="Title"
+            android:textColor="@android:color/white" />
 
         <TextView
             android:id="@+id/textViewTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:text="TextView" />
+            android:text="TextView"
+            android:textColor="@android:color/white" />
 
 
     </LinearLayout>
@@ -42,14 +44,16 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Rental date" />
+            android:text="Rental date"
+            android:textColor="@android:color/white" />
 
         <TextView
             android:id="@+id/textViewRentalDate"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:text="TextView" />
+            android:text="TextView"
+            android:textColor="@android:color/white" />
 
 
     </LinearLayout>
@@ -65,14 +69,16 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Return date" />
+            android:text="Return date"
+            android:textColor="@android:color/white" />
 
         <TextView
             android:id="@+id/textViewReturnDate"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:text="TextView" />
+            android:text="TextView"
+            android:textColor="@android:color/white" />
 
 
     </LinearLayout>
@@ -88,14 +94,16 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Rental rate" />
+            android:text="Rental rate"
+            android:textColor="@android:color/white" />
 
         <TextView
             android:id="@+id/textViewRentalRate"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:text="TextView" />
+            android:text="TextView"
+            android:textColor="@android:color/white" />
     </LinearLayout>
 
 
