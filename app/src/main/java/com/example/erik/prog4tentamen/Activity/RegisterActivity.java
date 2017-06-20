@@ -74,11 +74,17 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             if(!password.equals(comfirmpassword)){
                 dp.displayMessage("Wachtwoorden komen niet overheen");
             }
-            if(email.isEmpty()){
+            else if(email.isEmpty()){
                 dp.displayMessage("Vul een uniek email in");
             }
-            if(password.isEmpty()){
+            else if(password.isEmpty()){
                 dp.displayMessage("Vul een wachtwoord in");
+            }
+            else if(firstname.isEmpty()){
+                dp.displayMessage("Vul een voornaam in");
+            }
+            else if(lastname.isEmpty()){
+                dp.displayMessage("Vul een achternaam in");
             }
         }
 

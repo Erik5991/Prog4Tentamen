@@ -38,6 +38,7 @@ public class HomeFragment extends BaseFragment implements FilmListener{
     private Integer count, offset;
     private Boolean filmsloading = true;
     private SharedPrefferenceController sharedPrefferenceController;
+    private String title = "";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -74,6 +75,8 @@ public class HomeFragment extends BaseFragment implements FilmListener{
             @Override
             public void onClick(View v) {
                 getFilmsByName(zoekString.getText().toString(), count, offset);
+                filmArrayList.clear();
+                title = zoekString.getText().toString();
             }
         });
 
@@ -85,6 +88,7 @@ public class HomeFragment extends BaseFragment implements FilmListener{
         offset = 0;
 
         getFilms(count, offset);
+        filmsloading = true;
 
             filmListView.setOnScrollListener(new AbsListView.OnScrollListener() {
 
@@ -99,7 +103,12 @@ public class HomeFragment extends BaseFragment implements FilmListener{
                         if (!filmsloading) {
                             filmsloading = true;
                             offset = offset + count;
-                            getFilms(count, offset);
+                            if(!title.isEmpty()){
+                                getFilmsByName(title, count, offset);
+                            }
+                            else {
+                                getFilms(count, offset);
+                            }
                         }
                     }
                 }
@@ -110,13 +119,17 @@ public class HomeFragment extends BaseFragment implements FilmListener{
     public void onResume()
     {
         super.onResume();
-        filmsloading = true;
-        count = Integer.parseInt(sharedPrefferenceController.getCount());
-        offset = 0;
-        filmArrayList.clear();
-        getFilms(count, offset);
-
-        Log.i("count", count + "blyat");
+        if(!filmsloading) {
+            filmsloading = true;
+            count = Integer.parseInt(sharedPrefferenceController.getCount());
+            offset = 0;
+            filmArrayList.clear();
+            if (!title.isEmpty()) {
+                getFilmsByName(title, count, offset);
+            } else {
+                getFilms(count, offset);
+            }
+        }
     }
 
     @Override
@@ -142,7 +155,6 @@ public class HomeFragment extends BaseFragment implements FilmListener{
     private void getFilmsByName(String title, Integer count, Integer offset){
         Filmrequest request = new Filmrequest(getContext(), this);
         request.getAllFilmsByName(title, count, offset);
-        filmArrayList.clear();
+
     }
 }
-
