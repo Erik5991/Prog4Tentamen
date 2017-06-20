@@ -39,7 +39,7 @@ public class RentalReturnFragment extends BaseFragment implements RentalListener
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-       View view = inflater.inflate(R.layout.rent_history_layout, container, false);
+       View view = inflater.inflate(R.layout.rental_return_layout, container, false);
         getActivity().getFragmentManager();
 
         return view;
